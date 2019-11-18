@@ -18,6 +18,13 @@ For the latest full paper: https://arxiv.org/abs/
 All the experimental results and analysis can be reproduced using the code in this repository. Feel free to contact me by doerlbh@gmail.com if you have any question about our work.
 
 
+## Info
+
+Language: Python3, bash
+
+
+Platform: MacOS, Linux, Windows
+
 
 ## Citation
 
