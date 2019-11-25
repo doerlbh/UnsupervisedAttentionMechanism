@@ -39,18 +39,7 @@ If you find this work helpful, please try the models out and cite our work. Than
     }
 
   
-An earlier version of the work was presented at the IJCAI 2019 Workshop on Human Brain and Artificial Intelligence (HBAI) in Macau, China.  
-  
-    @inproceedings{lin2019neural,
-    	title={{Neural Networks as Model Selection with Incremental MDL Normalization}},
-    	author={Lin, Baihan},
-    	booktitle={International Workshop on Human Brain and Artificial Intelligence},
-    	pages={195--208},
-    	year={2019},
-    	organization={Springer}
-    }
-
-
+An earlier version of the work was presented at the IJCAI 2019 Workshop on Human Brain and Artificial Intelligence in Macau, China. See the slides (with only partial results in the arXiv above) at [here](https://www.baihan.nyc/pdfs/IJCAI_RN_slides.pdf).
 
 
 ## Tasks
