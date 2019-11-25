@@ -13,7 +13,7 @@ by [Baihan Lin](http://www.columbia.edu/~bl2681/) (Columbia).
 
 
 
-For the latest full paper: https://arxiv.org/abs/
+For the latest full paper: https://arxiv.org/abs/1902.10658
 
 All the experimental results and analysis can be reproduced using the code in this repository. Feel free to contact me by doerlbh@gmail.com if you have any question about our work.
 
@@ -21,9 +21,10 @@ All the experimental results and analysis can be reproduced using the code in th
 ## Info
 
 Language: Python3, bash
-
-
+  
 Platform: MacOS, Linux, Windows
+  
+by Baihan Lin, Feb 2019
 
 
 ## Citation
@@ -41,7 +42,7 @@ If you find this work helpful, please try the models out and cite our work. Than
 An earlier version of the work was presented at the IJCAI 2019 Workshop on Human Brain and Artificial Intelligence (HBAI) in Macau, China.  
   
     @inproceedings{lin2019neural,
-    	title={Neural Networks as Model Selection with Incremental MDL Normalization},
+    	title={{Neural Networks as Model Selection with Incremental MDL Normalization}},
     	author={Lin, Baihan},
     	booktitle={International Workshop on Human Brain and Artificial Intelligence},
     	pages={195--208},
