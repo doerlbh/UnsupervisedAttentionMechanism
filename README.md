@@ -23,12 +23,25 @@ All the experimental results and analysis can be reproduced using the code in th
 
 If you find this work helpful, please try the models out and cite our work. Thanks!
 
-    @article{lin2019UAM,
+    @article{lin2019unsupervised,
       title={{Unsupervised Attention Mechanism across Neural Network Layers}},
       author={Lin, Baihan},
-      journal={arXiv preprint arXiv:},
+      journal={arXiv preprint arXiv:1902.10658},
       year={2019}
     }
+
+  
+An earlier version of the work was presented at the IJCAI 2019 Workshop on Human Brain and Artificial Intelligence (HBAI) in Macau, China.  
+  
+    @inproceedings{lin2019neural,
+    	title={Neural Networks as Model Selection with Incremental MDL Normalization},
+    	author={Lin, Baihan},
+    	booktitle={International Workshop on Human Brain and Artificial Intelligence},
+    	pages={195--208},
+    	year={2019},
+    	organization={Springer}
+    }
+
 
 
 
