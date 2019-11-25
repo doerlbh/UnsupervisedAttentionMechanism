@@ -39,7 +39,7 @@ If you find this work helpful, please try the models out and cite our work. Than
     }
 
   
-An earlier version of the work was presented at the IJCAI 2019 Workshop on Human Brain and Artificial Intelligence in Macau, China. See the slides (with only partial results in the arXiv above) at [here](https://www.baihan.nyc/pdfs/IJCAI_RN_slides.pdf).
+An earlier version of the work was presented at the IJCAI 2019 Workshop on Human Brain and Artificial Intelligence in Macau, China. See the slides [here](https://www.baihan.nyc/pdfs/IJCAI_RN_slides.pdf) (with only partial results in the arXiv above).
 
 
 ## Tasks
