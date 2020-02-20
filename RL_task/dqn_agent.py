@@ -2,7 +2,7 @@ import numpy as np
 import random
 from collections import namedtuple, deque
 
-from dqn_model import QNetwork,QNetworkBN,QNetworkLN,QNetworkWN,QNetworkRN,QNetworkRLN,QNetworkRNLN,QNetwork_UAM,QNetworkRN_UAM
+from dqn_model import QNetwork,QNetworkBN,QNetworkLN,QNetworkWN,QNetworkRN,QNetworkRLN,QNetworkRNLN,QNetwork_UAM,QNetworkLN_UAM,QNetworkRN_UAM,QNetworkRLN_UAM,QNetworkRNLN_UAM
 
 import torch
 import torch.nn.functional as F
@@ -21,7 +21,7 @@ device = "cpu"
 class Agent_UAM():
     """Interacts with and learns from the environment."""
 
-    def __init__(self, state_size, action_size, seed, qnet='DQN'):
+    def __init__(self, state_size, action_size, seed, action_dim=False, qnet='DQN'):
         """Initialize an Agent object.
         
         Params
@@ -33,6 +33,7 @@ class Agent_UAM():
         self.state_size = state_size
         self.action_size = action_size
         self.seed = random.seed(seed)
+        self.action_dim = action_dim
 
         # Q-Network
         self.qnet = qnet
@@ -59,7 +60,16 @@ class Agent_UAM():
             self.qnetwork_target = QNetworkRNLN(state_size, action_size, seed).to(device)     
         elif qnet == 'DQN-RN-UAM':
             self.qnetwork_local = QNetworkRN_UAM(state_size, action_size, seed).to(device)
-            self.qnetwork_target = QNetworkRN_UAM(state_size, action_size, seed).to(device)
+            self.qnetwork_target = QNetworkRN_UAM(state_size, action_size, seed).to(device)     
+        elif qnet == 'DQN-LN-UAM':
+            self.qnetwork_local = QNetworkLN_UAM(state_size, action_size, seed).to(device)
+            self.qnetwork_target = QNetworkLN_UAM(state_size, action_size, seed).to(device)     
+        elif qnet == 'DQN-RLN-UAM':
+            self.qnetwork_local = QNetworkRLN_UAM(state_size, action_size, seed).to(device)
+            self.qnetwork_target = QNetworkRLN_UAM(state_size, action_size, seed).to(device)     
+        elif qnet == 'DQN-RNLN-UAM':
+            self.qnetwork_local = QNetworkRNLN_UAM(state_size, action_size, seed).to(device)
+            self.qnetwork_target = QNetworkRNLN_UAM(state_size, action_size, seed).to(device)
         elif qnet == 'DQN-UAM':
             self.qnetwork_local = QNetwork_UAM(state_size, action_size, seed).to(device)
             self.qnetwork_target = QNetwork_UAM(state_size, action_size, seed).to(device)
@@ -104,13 +114,15 @@ class Agent_UAM():
         with torch.no_grad():
             if self.qnet == 'DQN' or self.qnet == 'DQN-BN' or self.qnet == 'DQN-LN' or self.qnet == 'DQN-WN':
                 action_values = self.qnetwork_local(state)
-            elif self.qnet == 'DQN-UAM' or self.qnet == 'DQN-RN-UAM':
+            elif self.qnet in ['DQN-UAM','DQN-RN-UAM','DQN-LN-UAM','DQN-RLN-UAM','DQN-RNLN-UAM']:
                 action_values,self.x_history_stack_local,self.COMP_stack_local, l = self.qnetwork_local(state,self.x_history_stack_local,self.COMP_stack_local)
             else:
                 action_values,self.x_history_stack_local,self.COMP_stack_local = self.qnetwork_local(state,self.x_history_stack_local,self.COMP_stack_local)
         self.qnetwork_local.train()
 
         # Epsilon-greedy action selection
+        if self.action_dim:
+            return action_values.cpu().data.numpy()[0]
         if random.random() > eps:
             return np.argmax(action_values.cpu().data.numpy())
         else:
@@ -128,13 +140,22 @@ class Agent_UAM():
 
         # Get max predicted Q values (for next states) from target model
         if self.qnet == 'DQN' or self.qnet == 'DQN-BN' or self.qnet == 'DQN-LN' or self.qnet == 'DQN-WN':
-            Q_targets_next = self.qnetwork_target(next_states).detach().max(1)[0].unsqueeze(1)
-        elif self.qnet == 'DQN-UAM' or self.qnet == 'DQN-RN-UAM':
+            if self.action_dim:
+                Q_targets_next = self.qnetwork_target(next_states).detach()
+            else:       
+                Q_targets_next = self.qnetwork_target(next_states).detach().max(1)[0].unsqueeze(1)
+        elif self.qnet in ['DQN-UAM','DQN-RN-UAM','DQN-LN-UAM','DQN-RLN-UAM','DQN-RNLN-UAM']:
             Q_targets_next,self.x_history_stack_target,self.COMP_stack_target, l_target = self.qnetwork_target(next_states,self.x_history_stack_target,self.COMP_stack_target)
-            Q_targets_next = Q_targets_next.detach().max(1)[0].unsqueeze(1)
+            if self.action_dim:
+                Q_targets_next = Q_targets_next.detach()
+            else:
+                Q_targets_next = Q_targets_next.detach().max(1)[0].unsqueeze(1)            	
         else:
             Q_targets_next,self.x_history_stack_target,self.COMP_stack_target = self.qnetwork_target(next_states,self.x_history_stack_target,self.COMP_stack_target)
-            Q_targets_next = Q_targets_next.detach().max(1)[0].unsqueeze(1)
+            if self.action_dim:
+                Q_targets_next = Q_targets_next.detach()
+            else:
+                Q_targets_next = Q_targets_next.detach().max(1)[0].unsqueeze(1)
         # Q_targets_next = self.qnetwork_target(next_states).detach().max(1)[0].unsqueeze(1)
       
         # Compute Q targets for current states 
@@ -143,13 +164,18 @@ class Agent_UAM():
 
         # Get max predicted Q values (for next states) from target model
         if self.qnet == 'DQN' or self.qnet == 'DQN-BN' or self.qnet == 'DQN-LN' or self.qnet == 'DQN-WN':
-            Q_expected = self.qnetwork_local(states).gather(1, actions)
-        elif self.qnet == 'DQN-UAM' or self.qnet == 'DQN-RN-UAM':
+            if self.action_dim:
+                Q_expected = self.qnetwork_local(states)
+            else:
+                Q_expected = self.qnetwork_local(states).gather(1, actions)
+        elif self.qnet in ['DQN-UAM','DQN-RN-UAM','DQN-LN-UAM','DQN-RLN-UAM','DQN-RNLN-UAM']:
             Q_expected,self.x_history_stack_local,self.COMP_stack_local,l_local = self.qnetwork_local(states,self.x_history_stack_local,self.COMP_stack_local)
-            Q_expected = Q_expected.gather(1, actions)
+            if not self.action_dim:
+                Q_expected = Q_expected.gather(1, actions)
         else:
             Q_expected,self.x_history_stack_local,self.COMP_stack_local = self.qnetwork_local(states,self.x_history_stack_local,self.COMP_stack_local)
-            Q_expected = Q_expected.gather(1, actions)
+            if not self.action_dim:
+                Q_expected = Q_expected.gather(1, actions)
            
         # Get expected Q values from local model
         
@@ -182,7 +208,7 @@ class Agent_UAM():
 class Agent():
     """Interacts with and learns from the environment."""
 
-    def __init__(self, state_size, action_size, seed, qnet='DQN'):
+    def __init__(self, state_size, action_size, seed, action_dim=False, qnet='DQN'):
         """Initialize an Agent object.
         
         Params
@@ -194,6 +220,7 @@ class Agent():
         self.state_size = state_size
         self.action_size = action_size
         self.seed = random.seed(seed)
+        self.action_dim = action_dim
 
         # Q-Network
         self.qnet = qnet
@@ -270,6 +297,8 @@ class Agent():
         self.qnetwork_local.train()
 
         # Epsilon-greedy action selection
+        if self.action_dim:
+            return action_values.cpu().data.numpy()[0]
         if random.random() > eps:
             return np.argmax(action_values.cpu().data.numpy())
         else:
@@ -287,13 +316,22 @@ class Agent():
 
         # Get max predicted Q values (for next states) from target model
         if self.qnet == 'DQN' or self.qnet == 'DQN-BN' or self.qnet == 'DQN-LN' or self.qnet == 'DQN-WN':
-            Q_targets_next = self.qnetwork_target(next_states).detach().max(1)[0].unsqueeze(1)
+            if self.action_dim:
+                Q_targets_next = self.qnetwork_target(next_states).detach()
+            else:
+                Q_targets_next = self.qnetwork_target(next_states).detach().max(1)[0].unsqueeze(1)
         elif self.qnet == 'DQN-UAM' or self.qnet == 'DQN-RN-UAM':
             Q_targets_next,self.x_history_stack_target,self.COMP_stack_target, l = self.qnetwork_target(next_states,self.x_history_stack_target,self.COMP_stack_target)
-            Q_targets_next = Q_targets_next.detach().max(1)[0].unsqueeze(1)
+            if self.action_dim:
+                Q_targets_next = Q_targets_next.detach()
+            else:
+                Q_targets_next = Q_targets_next.detach().max(1)[0].unsqueeze(1)
         else:
             Q_targets_next,self.x_history_stack_target,self.COMP_stack_target = self.qnetwork_target(next_states,self.x_history_stack_target,self.COMP_stack_target)
-            Q_targets_next = Q_targets_next.detach().max(1)[0].unsqueeze(1)
+            if self.action_dim:
+                Q_targets_next = Q_targets_next.detach()
+            else:
+                Q_targets_next = Q_targets_next.detach().max(1)[0].unsqueeze(1)
         # Q_targets_next = self.qnetwork_target(next_states).detach().max(1)[0].unsqueeze(1)
       
         # Compute Q targets for current states 
@@ -302,13 +340,18 @@ class Agent():
 
         # Get max predicted Q values (for next states) from target model
         if self.qnet == 'DQN' or self.qnet == 'DQN-BN' or self.qnet == 'DQN-LN' or self.qnet == 'DQN-WN':
-            Q_expected = self.qnetwork_local(states).gather(1, actions)
+            if self.action_dim:
+                Q_expected = self.qnetwork_local(states)
+            else:
+                Q_expected = self.qnetwork_local(states).gather(1, actions)
         elif self.qnet == 'DQN-UAM' or self.qnet == 'DQN-BN-UAM':
             Q_expected,self.x_history_stack_local,self.COMP_stack_local,l = self.qnetwork_local(states,self.x_history_stack_local,self.COMP_stack_local)
-            Q_expected = Q_expected.gather(1, actions)
+            if not self.action_dim:
+                Q_expected = Q_expected.gather(1, actions)
         else:
             Q_expected,self.x_history_stack_local,self.COMP_stack_local = self.qnetwork_local(states,self.x_history_stack_local,self.COMP_stack_local)
-            Q_expected = Q_expected.gather(1, actions)
+            if not self.action_dim:
+                Q_expected = Q_expected.gather(1, actions)
            
         # Get expected Q values from local model
         

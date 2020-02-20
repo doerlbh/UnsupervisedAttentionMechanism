@@ -154,8 +154,8 @@ def train(seed,n_down,p_down,model, device, train_loader, train_size, valid_load
         idx_to_del = [i for i, label in enumerate(train_loader.dataset.train_labels) 
                       if random.random() > sample_probs[label]]
         imbalanced_train_dataset = copy.deepcopy(train_data)
-        imbalanced_train_dataset.train_labels = np.delete(train_loader.dataset.train_labels, idx_to_del, axis=0)
-        imbalanced_train_dataset.train_data = np.delete(train_loader.dataset.train_data, idx_to_del, axis=0)
+        imbalanced_train_dataset.targets = np.delete(train_loader.dataset.train_labels.numpy(), np.array(idx_to_del), axis=0)
+        imbalanced_train_dataset.data = np.delete(train_loader.dataset.train_data, np.array(idx_to_del), axis=0)
         imbalanced_train_loader = torch.utils.data.DataLoader(imbalanced_train_dataset, batch_size=BATCH_SIZE, shuffle=True)
         train_loader = imbalanced_train_loader
     
@@ -249,8 +249,8 @@ def train_RN(seed,n_down,p_down,model, device, train_loader, train_size, valid_l
         idx_to_del = [i for i, label in enumerate(train_loader.dataset.train_labels) 
                       if random.random() > sample_probs[label]]
         imbalanced_train_dataset = copy.deepcopy(train_data)
-        imbalanced_train_dataset.train_labels = np.delete(train_loader.dataset.train_labels, idx_to_del, axis=0)
-        imbalanced_train_dataset.train_data = np.delete(train_loader.dataset.train_data, idx_to_del, axis=0)
+        imbalanced_train_dataset.targets = np.delete(train_loader.dataset.train_labels.numpy(), np.array(idx_to_del), axis=0)
+        imbalanced_train_dataset.data = np.delete(train_loader.dataset.train_data, np.array(idx_to_del), axis=0)
         imbalanced_train_loader = torch.utils.data.DataLoader(imbalanced_train_dataset, batch_size=BATCH_SIZE, shuffle=True)
         train_loader = imbalanced_train_loader
 
@@ -351,8 +351,8 @@ def train_SN(seed,n_down,p_down,model, device, train_loader, train_size, valid_l
         idx_to_del = [i for i, label in enumerate(train_loader.dataset.train_labels) 
                       if random.random() > sample_probs[label]]
         imbalanced_train_dataset = copy.deepcopy(train_data)
-        imbalanced_train_dataset.train_labels = np.delete(train_loader.dataset.train_labels, idx_to_del, axis=0)
-        imbalanced_train_dataset.train_data = np.delete(train_loader.dataset.train_data, idx_to_del, axis=0)
+        imbalanced_train_dataset.targets = np.delete(train_loader.dataset.train_labels.numpy(), np.array(idx_to_del), axis=0)
+        imbalanced_train_dataset.data = np.delete(train_loader.dataset.train_data, np.array(idx_to_del), axis=0)
         imbalanced_train_loader = torch.utils.data.DataLoader(imbalanced_train_dataset, batch_size=BATCH_SIZE, shuffle=True)
         train_loader = imbalanced_train_loader
 
