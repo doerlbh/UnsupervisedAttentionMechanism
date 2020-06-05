@@ -21,7 +21,7 @@ All the experimental results and analysis can be reproduced using the code in th
 
 **Abstract**
 
-Inspired by the adaptation phenomenon of neuronal firing, we propose the regularity normalization (RN) as an unsupervised attention mechanism (UAM) which computes the statistical regularity in the implicit space of neural networks under the Minimum Description Length (MDL) principle. Treating the neural network optimization process as a partially observable model selection problem, UAM constrained the implicit space by a normalization factor, the universal code length. We compute this universal code incrementally across neural network layers and demonstrated the flexibility to include data priors such as top-down attention and other oracle information. Empirically, our approach outperforms existing normalization methods in tackling limited, imbalanced and non-stationary input distribution in computer vision and reinforcement learning tasks. Lastly, UAM tracks dependency and critical learning stages across layers and recurrent time steps of deep networks.
+Inspired by the adaptation phenomenon of neuronal firing, we propose the regularity normalization (RN) as an unsupervised attention mechanism (UAM) which computes the statistical regularity in the implicit space of neural networks under the Minimum Description Length (MDL) principle. Treating the neural network optimization process as a partially observable model selection problem, UAM constrains the implicit space by a normalization factor, the universal code length. We compute this universal code incrementally across neural network layers and demonstrated the flexibility to include data priors such as top-down attention and other oracle information. Empirically, our approach outperforms existing normalization methods in tackling limited, imbalanced and non-stationary input distribution in image classification, classic control, procedurally-generated reinforcement learning, generative modeling, handwriting generation and question answering tasks with various neural network architectures. Lastly, UAM tracks dependency and critical learning stages across layers and recurrent time steps of deep networks.
 
 
 
@@ -32,6 +32,8 @@ Language: Python3, bash
 Platform: MacOS, Linux, Windows
 
 by Baihan Lin, Feb 2019
+
+
 
 
 ## Citation
@@ -47,16 +49,21 @@ If you find this work helpful, please try the models out and cite our work. Than
 
   
 
-
-
 An earlier version of the work was presented at the IJCAI 2019 Workshop on Human Brain and Artificial Intelligence in Macau, China. See the slides [here](https://www.baihan.nyc/pdfs/IJCAI_RN_slides.pdf) (with only partial results in the arXiv above).
+
+
 
 
 ## Tasks
 
-* Imbalanced MNIST task
-* OpenAI gym's LunarLander-v2 game
-* OpenAI gym's CarPole-v0 game
+* Imbalanced MNIST task with FFNN and RNN
+* OpenAI gym's LunarLander-v2 game with DQN
+* OpenAI gym's CarPole-v0 game with DQN
+* MiniGrid gym's RedBlueDoors with PPO
+* Handwritten digit generative modeling with DRAW
+* Facebook AI's bAbI reasoning task 18 and 19 with GGNN
+
+
 
 
 
@@ -66,4 +73,13 @@ An earlier version of the work was presented at the IJCAI 2019 Workshop on Human
 * [PyTorch](http://pytorch.org/)
 * numpy and scikit-learn
 
+
+
+## Acknowledgements
+
+For the MiniGrid, Generative modeling, and bAbI tasks, this repository built upon the following repositories.   Thank you!
+
+- https://github.com/lcswillems/rl-starter-files
+- https://github.com/chingyaoc/ggnn.pytorch
+- https://github.com/chenzhaomin123/draw_pytorch
 
