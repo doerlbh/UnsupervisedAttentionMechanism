@@ -7,7 +7,7 @@
 
 Code for our paper: 
 
-**"Constraining Implicit Space with MDL: Regularity Normalization as Unsupervised Attention"** 
+**"Constraining Implicit Space with Minimum Description Length: An Unsupervised Attention Mechanism across Neural Network Layers"** 
 
 by [Baihan Lin](http://www.columbia.edu/~bl2681/) (Columbia). 
 
@@ -41,13 +41,14 @@ by Baihan Lin, Feb 2019
 If you find this work helpful, please try the models out and cite our work. Thanks!
 
     @article{lin2019constraining,
-      title={{Constraining Implicit Space with MDL: Regularity Normalization as Unsupervised Attention}},
+      title={{Constraining Implicit Space with Minimum Description Length: An Unsupervised Attention Mechanism across Neural Network Layers}},
       author={Lin, Baihan},
       journal={arXiv preprint arXiv:1902.10658},
       year={2019}
     }
 
   
+
 
 An earlier version of the work was presented at the IJCAI 2019 Workshop on Human Brain and Artificial Intelligence in Macau, China. See the slides [here](https://www.baihan.nyc/pdfs/IJCAI_RN_slides.pdf) (with only partial results in the arXiv above).
 
