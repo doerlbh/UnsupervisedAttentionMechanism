@@ -5,9 +5,9 @@
 
  
 
-Code for our paper: 
+Code for our paper published on *Entropy*: 
 
-**"Constraining Implicit Space with Minimum Description Length: An Unsupervised Attention Mechanism across Neural Network Layers"** 
+**"Regularity Normalization: Neuroscience-Inspired Unsupervised Attention across Neural Network Layers"** 
 
 by [Baihan Lin](http://www.columbia.edu/~bl2681/) (Columbia). 
 
@@ -21,7 +21,7 @@ All the experimental results and analysis can be reproduced using the code in th
 
 **Abstract**
 
-Inspired by the adaptation phenomenon of neuronal firing, we propose the regularity normalization (RN) as an unsupervised attention mechanism (UAM) which computes the statistical regularity in the implicit space of neural networks under the Minimum Description Length (MDL) principle. Treating the neural network optimization process as a partially observable model selection problem, UAM constrains the implicit space by a normalization factor, the universal code length. We compute this universal code incrementally across neural network layers and demonstrated the flexibility to include data priors such as top-down attention and other oracle information. Empirically, our approach outperforms existing normalization methods in tackling limited, imbalanced and non-stationary input distribution in image classification, classic control, procedurally-generated reinforcement learning, generative modeling, handwriting generation and question answering tasks with various neural network architectures. Lastly, UAM tracks dependency and critical learning stages across layers and recurrent time steps of deep networks.
+Inspired by the adaptation phenomenon of neuronal firing, we propose the regularity normalization (RN) as an unsupervised attention mechanism (UAM) which computes the statistical regularity in the implicit space of neural networks under the Minimum Description Length (MDL) principle. Treating the neural network optimization process as a partially observable model selection problem, the regularity normalization constrains the implicit space by a normalization factor, the universal code length. We compute this universal code incrementally across neural network layers and demonstrate the flexibility to include data priors such as top-down attention and other oracle information. Empirically, our approach outperforms existing normalization methods in tackling limited, imbalanced and non-stationary input distribution in image classification, classic control, procedurally-generated reinforcement learning, generative modeling, handwriting generation and question answering tasks with various neural network architectures. Lastly, the unsupervised attention mechanisms is a useful probing tool for neural networks by tracking the dependency and critical learning stages across layers and recurrent time steps of deep networks.
 
 
 
@@ -40,17 +40,18 @@ by Baihan Lin, Feb 2019
 
 If you find this work helpful, please try the models out and cite our work. Thanks!
 
-    @article{lin2019constraining,
-      title={{Constraining Implicit Space with Minimum Description Length: An Unsupervised Attention Mechanism across Neural Network Layers}},
+    @article{lin2020regularity,
+      title={Regularity Normalization: Neuroscience-Inspired Unsupervised Attention across Neural Network Layers},
       author={Lin, Baihan},
-      journal={arXiv preprint arXiv:1902.10658},
-      year={2019}
+      journal={Entropy},
+      year={2021}
     }
 
   
 
 
-An earlier version of the work was presented at the IJCAI 2019 Workshop on Human Brain and Artificial Intelligence in Macau, China. See the slides [here](https://www.baihan.nyc/pdfs/IJCAI_RN_slides.pdf) (with only partial results in the arXiv above).
+
+An earlier version of the work was also presented at the IJCAI 2019 Workshop on Human Brain and Artificial Intelligence in Macau, China. See the slides [here](https://www.baihan.nyc/pdfs/IJCAI_RN_slides.pdf) (with only partial results, unlike the full extended journal referenced above).
 
 
 
