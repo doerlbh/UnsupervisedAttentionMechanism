@@ -40,14 +40,22 @@ by Baihan Lin, Feb 2019
 
 If you find this work helpful, please try the models out and cite our work. Thanks!
 
-    @article{lin2021regularity,
-      title={{Regularity Normalization: Neuroscience-Inspired Unsupervised Attention across Neural Network Layers}},
+    @article{lin2022regularity,
+      title={Regularity Normalization: Neuroscience-Inspired Unsupervised Attention across Neural Network Layers},
       author={Lin, Baihan},
       journal={Entropy},
-      year={2021}
+      volume={24},
+      year={2022},
+      number={1},
+      pages={59},
+      article-number={59},
+      doi={10.3390/e24010059},
+      url={https://www.mdpi.com/1099-4300/24/1/59},
+      issn={1099-4300},
     }
 
   
+
 
 
 
